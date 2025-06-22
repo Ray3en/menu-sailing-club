@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Меню</title>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Caveat', cursive;
+      font-size: 20px;
+      background: url('https://www.transparenttextures.com/patterns/paper-fibers.png') repeat;
+      padding: 10px;
+      color: #2f2f2f;
+    }
+
+    .logo-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 40px;
+      margin-bottom: 10px;
+    }
+
+    .logo-container img {
+      max-height: 100px;
+      filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3));
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 48px;
+      /* margin-bottom: 50px; */
+      /* border-bottom: 3px dashed #444; */
+      /* padding-bottom: 10px; */
+    }
+
+    .category {
+      margin-bottom: 40px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border: 2px dotted #ccc;
+      border-radius: 8px;
+    }
+
+    .category h2 {
+      font-size: 36px;
+      color: #333;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #999;
+    }
+
+    .subcategory h3 {
+      font-size: 28px;
+      color: #666;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    .product-list {
+      margin-left: 20px;
+    }
+
+    .product {
+      margin: 5px 0;
+    }
+
+    .product strong {
+      font-weight: 700;
+      font-size: 22px;
+    }
+
+    .container{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .product small {
+      display: block;
+      color: #666;
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="logo-container">
+    <img src="{% static 'img/main_logo.png' %}" alt="Main Logo" />
+    <img src="{% static 'img/sorriso_logo.png' %}" alt="Sorriso Logo" />
+  </div>
+
+  <h1>Меню</h1>
+
+  <div classname="container">
+    {% for category in categories %}
+    <div class="category">
+      <h2>{{ category.name }}</h2>
+
+      {% for sub in category.subcategories.all %}
+      <div class="subcategory">
+        <h3>{{ sub.name }}</h3>
+        <div class="product-list">
+          {% for product in sub.products.all %}
+          {% if product.is_available %}
+          <div class="product">
+            <strong>{{ product.title }}</strong> — {{ product.price }} {{" "}}֏
+            {% if product.description %}
+            <small>{{ product.description }}</small>
+            {% endif %}
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+</body>
+
+</html>
