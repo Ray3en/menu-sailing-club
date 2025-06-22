@@ -6,6 +6,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('menu/', menu_view, name='menu'),
-    path('menu-page/', menu_page, name='menu-page'),
+    # path('menu-page/', menu_page, name='menu-page'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
